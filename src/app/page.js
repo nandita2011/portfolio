@@ -2,47 +2,28 @@
 
 import React, { useState } from 'react';
 import { 
-  Phone, 
-  MessageCircle, 
-  CheckCircle, 
-  Shield, 
-  Clock, 
+  Target, 
+  Trophy, 
+  Star, 
+  ArrowRight, 
+  Menu, 
+  X, 
+  Zap, 
   Users, 
-  Baby, 
-  Stethoscope, 
+  Clock, 
   MapPin, 
-  Mail,
-  ArrowRight,
-  Menu,
-  X,
-  Heart,
-  Syringe,
-  Calendar
+  Phone,
+  CheckCircle2,
+  Award,
+  TrendingUp,
+  Atom
 } from 'lucide-react';
 
-/* --- REUSABLE COMPONENTS --- */
+/* --- UI COMPONENTS --- */
 
-const SectionHeading = ({ title, subtitle }) => (
-  <div className="text-center mb-12">
-    <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mb-4">{title}</h2>
-    <div className="h-1 w-20 bg-teal-500 mx-auto mb-4"></div>
-    {subtitle && <p className="text-slate-600 max-w-2xl mx-auto">{subtitle}</p>}
-  </div>
-);
-
-// Updated Button to accept onClick and other props
 const ButtonPrimary = ({ children, className = "", ...props }) => (
   <button 
-    className={`bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg ${className}`}
-    {...props}
-  >
-    {children}
-  </button>
-);
-
-const ButtonSecondary = ({ children, className = "", ...props }) => (
-  <button 
-    className={`bg-white hover:bg-teal-50 text-teal-600 border-2 border-teal-600 font-semibold py-3 px-8 rounded-full transition-all ${className}`}
+    className={`bg-red-600 hover:bg-slate-900 text-white font-black uppercase tracking-widest py-4 px-10 rounded-xl transition-all transform hover:scale-105 shadow-xl shadow-red-600/30 ${className}`}
     {...props}
   >
     {children}
@@ -51,355 +32,303 @@ const ButtonSecondary = ({ children, className = "", ...props }) => (
 
 /* --- MAIN SECTIONS --- */
 
-// 1. Navbar (Fixed Links)
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const scrollToSection = (id) => {
-    setIsOpen(false); // Close mobile menu if open
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollTo = (id) => {
+    setIsOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo Area */}
-        <div 
-            className="flex items-center gap-2 cursor-pointer" 
-            onClick={() => scrollToSection('home')}
-        >
-            <div className="bg-teal-100 p-2 rounded-full">
-                <Stethoscope className="text-teal-600 w-6 h-6" />
-            </div>
-            <div className="font-bold text-xl md:text-2xl text-slate-800">
-                Dr. Debashree <span className="text-teal-600">Priyadarshini</span>
-            </div>
+    <nav className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <div className="bg-red-600 p-2 rounded-lg shadow-lg">
+            <Target className="text-white w-6 h-6" />
+          </div>
+          <div className="font-black text-2xl text-slate-900 tracking-tighter uppercase leading-none">
+            SETU KUMAR <span className="text-red-600 italic">THAKUR</span>
+          </div>
         </div>
         
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 font-medium text-slate-700">
-          <button onClick={() => scrollToSection('home')} className="hover:text-teal-600">Home</button>
-          <button onClick={() => scrollToSection('about')} className="hover:text-teal-600">About</button>
-          <button onClick={() => scrollToSection('services')} className="hover:text-teal-600">Services</button>
-          <button onClick={() => scrollToSection('contact')} className="hover:text-teal-600">Clinic Info</button>
+        <div className="hidden md:flex gap-10 font-black text-slate-500 uppercase text-[11px] tracking-[0.2em]">
+          <button onClick={() => scrollTo('home')} className="hover:text-red-600 transition-colors">Home</button>
+          <button onClick={() => scrollTo('expertise')} className="hover:text-red-600 transition-colors">Experience</button>
+          <button onClick={() => scrollTo('batches')} className="hover:text-red-600 transition-colors">Batches</button>
+          <button onClick={() => scrollTo('contact')} className="text-red-600 font-bold border-b-2 border-red-600 pb-1">Enrol 2025</button>
         </div>
 
-        {/* Call to Action */}
-        <button 
-            onClick={() => scrollToSection('contact')}
-            className="hidden md:block bg-teal-600 text-white px-5 py-2 rounded-full hover:bg-teal-700 transition-colors"
-        >
-            Book Appointment
-        </button>
-
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-slate-700" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
+        <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X /> : <Menu />}
         </button>
       </div>
-      
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t p-4 flex flex-col gap-4 shadow-lg absolute w-full left-0">
-           <button onClick={() => scrollToSection('home')} className="text-left text-slate-700 py-2 border-b">Home</button>
-           <button onClick={() => scrollToSection('about')} className="text-left text-slate-700 py-2 border-b">About</button>
-           <button onClick={() => scrollToSection('services')} className="text-left text-slate-700 py-2 border-b">Services</button>
-           <button onClick={() => scrollToSection('contact')} className="bg-teal-600 text-white w-full py-2 rounded-md mt-2">Book Appointment</button>
-        </div>
-      )}
     </nav>
   );
 };
 
-// 2. Hero Section (Added ID)
 const Hero = () => {
-  const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <div id="home" className="relative bg-teal-50 min-h-[600px] flex items-center pt-20 md:pt-0">
-      <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="order-2 lg:order-1">
-          <span className="inline-block py-1 px-3 rounded-full bg-teal-200 text-teal-800 text-l font-semibold mb-6">
-             Specialist in Pediatrics & General Medicine
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
-            Expert Healthcare < br/> for Your.... <br/>
-            <span className="text-teal-600">Child & Family</span>
-          </h1>
-          <p className="text-lg text-slate-600 mb-8 max-w-xl leading-relaxed">
-            Dr. Debashree Priyadarshini < br/>(Assistant Professor, IMS & SUM Hospital) < br/>provides compassionate, evidence-based medical care with over 16 years of experience.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ButtonPrimary onClick={scrollToContact} className="flex items-center justify-center gap-2">
-               <Calendar className="w-5 h-5" /> Book Consultation
-            </ButtonPrimary>
-            <ButtonSecondary onClick={scrollToContact} className="flex items-center justify-center gap-2">
-               <Phone className="w-5 h-5" /> +91 7008288862
-            </ButtonSecondary>
+    <section id="home" className="relative bg-slate-950 pt-20 pb-32 overflow-hidden">
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-red-600/5 blur-[120px] rounded-full"></div>
+      
+      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 py-2 px-4 rounded-lg bg-red-600/10 text-red-500 text-[12px] font-black uppercase tracking-[0.3em] mb-8 border border-red-600/20">
+            <Award className="w-4 h-4" /> NEET & JEE PHYSICS Mentor
           </div>
-          <p className="mt-4 text-sm text-slate-500 flex items-center gap-2">
-             <Clock className="w-4 h-4 text-teal-500" /> Clinic Hours: 6:00 PM - 9:00 PM (Mon-Sat)
-          </p>
-        </div>
-        <div className="order-1 lg:order-2 relative">
-            <div className="absolute inset-0 bg-teal-200 rounded-full filter blur-3xl opacity-30 transform translate-x-10 translate-y-10"></div>
-            <img 
-              src="/assets/photo.jpeg" 
-              alt="Doctor treating child" 
-              className="relative z-10 w-full rounded-3xl shadow-2xl border-4 border-white"
-            />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// 3. Trust Indicators
-const KeyFeatures = () => {
-  const features = [
-    { icon: <Shield className="w-8 h-8 text-teal-600" />, title: "16+ Years Exp", desc: "Trusted Medical Professional" },
-    { icon: <Baby className="w-8 h-8 text-teal-600" />, title: "Child Specialist", desc: "Expert Pediatric Care" },
-    { icon: <Users className="w-8 h-8 text-teal-600" />, title: "Family Medicine", desc: "Care for All Ages" },
-    { icon: <Heart className="w-8 h-8 text-teal-600" />, title: "Personalized", desc: "Patient-Centric Approach" },
-  ];
-
-  return (
-    <div className="bg-white py-12 relative z-20 shadow-sm border-b">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {features.map((feature, idx) => (
-            <div key={idx} className="flex flex-col items-center text-center p-4 hover:bg-slate-50 rounded-lg transition-colors">
-              <div className="mb-3 bg-teal-50 w-16 h-16 rounded-full flex items-center justify-center">
-                {feature.icon}
-              </div>
-              <h3 className="font-bold text-lg text-slate-800">{feature.title}</h3>
-              <p className="text-slate-500 text-sm">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// 4. Services Offered (Added ID)
-const Services = () => {
-  const services = [
-    { title: "General Pediatrics", icon: <Baby className="w-6 h-6"/>, desc: "Complete diagnosis and treatment for common childhood illnesses like viral fever, cough, and cold." },
-    { title: "Growth & Development", icon: <CheckCircle className="w-6 h-6"/>, desc: "Monitoring height, weight, and developmental milestones to ensure your child is growing healthy." },
-    { title: "Vaccination/Immunization", icon: <Syringe className="w-6 h-6"/>, desc: "Routine vaccination schedules for infants and children to protect against serious diseases." },
-    { title: "Newborn Care", icon: <Heart className="w-6 h-6"/>, desc: "Specialized guidance for new parents on feeding, sleep cycles, and newborn hygiene." },
-    { title: "Adolescent Health", icon: <Users className="w-6 h-6"/>, desc: "Addressing health concerns, nutrition, and hormonal changes in growing teenagers." },
-    { title: "General Consultation", icon: <Stethoscope className="w-6 h-6"/>, desc: "Primary care and health management for adults and family members." },
-  ];
-
-  return (
-    <div id="services" className="py-20 bg-slate-50">
-      <div className="container mx-auto px-4">
-        <SectionHeading title="Medical Services" subtitle="Comprehensive healthcare services tailored to your family's needs." />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((item, idx) => (
-            <div key={idx} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
-              <div className="bg-teal-100 text-teal-700 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                {item.icon}
-              </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// 5. About Doctor (Added ID)
-const AboutDoctor = () => {
-  const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  };
-
-  return (
-    <div id="about" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2 relative">
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-teal-100 rounded-tl-3xl -z-10"></div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-teal-100 rounded-br-3xl -z-10"></div>
-            <img 
-                src="assets/photo.jpeg" 
-                alt="Dr Debashree Priyadarshini" 
-                className="w-full rounded-lg shadow-xl"
-            />
-          </div>
-          <div className="lg:w-1/2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              Meet Dr. Debashree Priyadarshini
-            </h2>
-            <h3 className="text-teal-600 font-semibold text-lg mb-6">MBBS, MD (Pediatrics)</h3>
+           <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tighter uppercase italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-100 to-orange-600">SETU. <br />KUMAR. <br />THAKUR.</span> <br/>
             
-            <p className="text-slate-600 mb-6 leading-relaxed">
-              Dr. Debashree Priyadarshini is a distinguished Pediatrician and General Physician based in Bhubaneswar. She currently serves as an <strong>Assistant Professor</strong> at the prestigious <strong>IMS & SUM Hospital</strong>.
-            </p>
-            <p className="text-slate-600 mb-8 leading-relaxed">
-              With a deep commitment to child health and academic excellence, she has published numerous research papers on pediatric critical care. At her private clinic in Chandrasekharpur, she offers personalized attention to every patient, ensuring accurate diagnosis and effective treatment plans.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="flex items-center">
-                    <CheckCircle className="text-teal-500 mr-2 w-5 h-5" />
-                    <span className="text-slate-700">16+ Years Experience</span>
-                </div>
-                <div className="flex items-center">
-                    <CheckCircle className="text-teal-500 mr-2 w-5 h-5" />
-                    <span className="text-slate-700">Faculty at IMS & SUM</span>
-                </div>
-                <div className="flex items-center">
-                    <CheckCircle className="text-teal-500 mr-2 w-5 h-5" />
-                    <span className="text-slate-700">Published Researcher</span>
-                </div>
-                <div className="flex items-center">
-                    <CheckCircle className="text-teal-500 mr-2 w-5 h-5" />
-                    <span className="text-slate-700">Rated 5.0 Stars (Justdial)</span>
-                </div>
-            </div>
-
-            <ButtonPrimary onClick={scrollToContact}>Book an Appointment</ButtonPrimary>
+          </h1>
+          {/* <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tighter uppercase italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-400">Physics. </span> <br/>
+            Mentor
+          </h1> */}
+          <p className="text-slate-400 text-xl font-medium max-w-lg leading-relaxed mb-10">
+            <span className="text-white font-bold decoration-red-600">Senior Physics Lecturer at ALLEN Chennai</span>.
+            <br />9+ years of expertise in mentoring NEET & JEE aspirants to achieve excellence.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6">
+            <ButtonPrimary onClick={() => document.getElementById('contact').scrollIntoView({behavior: 'smooth'})}>
+              Start Your Journey
+            </ButtonPrimary>
           </div>
+        </div>
+
+        <div className="relative">
+          <div className="relative z-10 rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl transition-all duration-700">
+            <img 
+              src="assets/PHOTO.jpeg" 
+              alt="Setu Kumar Thakur" 
+              className="w-full h-auto object-cover aspect-[4/5]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <div className="absolute bottom-8 left-8">
+              <p className="text-red-500 font-black uppercase tracking-widest text-sm mb-1">Senior Physics Faculty</p>
+              <p className="text-white text-3xl font-black italic uppercase">ALLEN Career Institute</p>
+            </div>
+          </div>
+          <div className="absolute -top-10 -right-10 w-32 h-32 border-t-4 border-r-4 border-red-600 opacity-50"></div>
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 border-b-4 border-l-4 border-red-600 opacity-50"></div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const SuccessStats = () => {
+  const stats = [
+    { icon: <Users />, value: "5000+", label: "Students Mentored" },
+    { icon: <TrendingUp />, value: "9+ Years", label: "Experience" },
+    { icon: <Star />, value: "Top 100", label: "Ranks Produced" },
+    { icon: <Trophy />, value: "100%", label: "Course Mastery" },
+  ];
+
+  return (
+    <div className="bg-slate-900 border-y border-white/10">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center group">
+              <div className="text-red-600 flex justify-center mb-3 group-hover:scale-110 transition-transform">{stat.icon}</div>
+              <div className="text-white text-3xl font-black mb-1">{stat.value}</div>
+              <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-// 6. Clinic Details / Location (Added ID)
-const ClinicInfo = () => {
-    return (
-      <div id="contact" className="py-20 bg-slate-900 text-white">
-        <div className="container mx-auto px-4">
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-               <div>
-                   <h2 className="text-3xl font-bold mb-6">Visit Our Clinic</h2>
-                   <p className="text-slate-300 mb-8">
-                       Conveniently located in Chandrasekharpur, we provide a clean, safe, and child-friendly environment for your consultation.
-                   </p>
-                   
-                   <div className="space-y-6">
-                        <div className="flex items-start">
-                            <MapPin className="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-lg">Address</h4>
-                                <p className="text-slate-300">Riddhi Siddhi, plot- 250, <br/>opposite Bijaya care homes, Prachi Enclave, <br/>Rail Vihar,   Chandrasekharpur, Bhubaneswar, Odisha 751016</p>
-                            </div>
-                        </div>
-                        
-                        <div className="flex items-start">
-                            <Clock className="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-lg">Consultation Hours</h4>
-                                <p className="text-slate-300">Monday - Saturday: 6:00 PM - 9:00 PM</p>
-                                <p className="text-slate-300">Sunday: 9:00 AM - 9:00 PM</p>
-                            </div>
-                        </div>
 
-                        <div className="flex items-start">
-                            <Phone className="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-lg">Contact</h4>
-                                <p className="text-slate-300">+91  70082 88862</p>
-                            </div>
-                        </div>
-                   </div>
-               </div>
+
+const ExperienceGrid = () => {
+  return (
+    <section id="expertise" className="py-24 bg-white">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+          <div className="lg:col-span-2">
+            <h2 className="text-4xl font-black text-slate-950 mb-8 uppercase italic tracking-tighter">
+              Mentoring the <span className="text-red-600 underline">Next Generation</span> Doctors & Engineers
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                { t: "Physics Core Foundations", d: "Breaking down complex concept and laws of physics into simple, visual concepts." },
+                { t: "NEET/JEE Focused Methodology", d: "Targeted problem-solving techniques developed over 9 years for NEET & JEE." },
+                { t: "Time-Management Secrets", d: "Learning how to tackle Physics sections in under 45 minutes with maximum accuracy." },
+                { t: "Advanced NTA Analytics", d: "Solving expected question patterns based on rigorous analysis of previous years." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-4 items-start p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:bg-white transition-all">
+                  <CheckCircle2 className="text-red-600 w-6 h-6 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-black uppercase text-xs tracking-widest text-slate-900 mb-2">{item.t}</h4>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-slate-950 rounded-[2rem] p-10 text-white shadow-2xl">
+             <div className="p-3 bg-red-600 inline-block rounded-xl mb-6">
+               <Zap className="w-8 h-8 text-white" />
+             </div>
+             <h3 className="text-3xl font-black italic uppercase mb-6 leading-tight">Background</h3>
+             <ul className="space-y-6">
+               <li className="flex flex-col">
+                   <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">Specialization</span>
+                   <span className="font-bold text-xl leading-snug">NEET <br /> JEE Main<br />JEE Advance</span>
+                </li>
+                <li className="flex flex-col">
+                   <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">Current Role</span>
+                   <span className="font-bold text-xl leading-snug">Senior Physics Lecturer <br/>ALLEN Chennai</span>
+                </li>
+                <li className="flex flex-col">
+                   <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">Previous Experience</span>
+                   <span className="font-bold text-xl leading-snug">Senior Physics Lecturer <br/>Aakash Institute</span>
+                </li>
                
-               <div className="h-80 bg-slate-800 rounded-xl overflow-hidden relative border border-slate-700">
-                   <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-                       <p className="text-slate-400 flex flex-col items-center">
-                           <MapPin className="w-12 h-12 mb-2 text-teal-500" />
-                           <span>Map Loaded Here</span>
-                       </p>
-                   </div>
-               </div>
+             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const AdmissionForm = () => {
+  return (
+    <section id="contact" className="py-24 bg-slate-50">
+      <div className="container mx-auto px-6">
+        <div className="max-w-6xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
+           <div className="bg-slate-950 p-12 text-white md:w-2/5 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-full bg-red-600/10 blur-3xl rounded-full"></div>
+              <div className="relative z-10">
+                <h3 className="text-4xl font-black uppercase italic mb-6">Enrol <br/><span className="text-red-600 text-5xl">2026</span></h3>
+                <p className="text-slate-400 mb-10 text-lg">Limited intake for specialized mentorship batches. Secure your seat today.</p>
+              </div>
+              <div className="space-y-8 relative z-10">
+                 <div className="flex items-center gap-4 group">
+                    <div className="bg-red-600 p-3 rounded-xl group-hover:scale-110 transition-transform"><MapPin className="w-5 h-5"/></div>
+                    <span className="text-sm font-bold uppercase tracking-widest">Chennai, Tamil Nadu</span>
+                 </div>
+                 <div className="flex items-center gap-4 group">
+                    <div className="bg-red-600 p-3 rounded-xl group-hover:scale-110 transition-transform"><Phone className="w-5 h-5"/></div>
+                    <span className="text-sm font-bold uppercase tracking-widest">+91 8961822513</span>
+                 </div>
+              </div>
+           </div>
+           <div className="p-12 md:w-3/5">
+              <h4 className="text-2xl font-black uppercase italic mb-8">Admission Inquiry</h4>
+              <form className="space-y-6" onSubmit={e => e.preventDefault()}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
+                    <input type="text" className="w-full border-b-2 border-slate-200 focus:border-red-600 outline-none py-2 font-bold text-slate-900 bg-transparent" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Aspirant Type</label>
+                    <select className="w-full border-b-2 border-slate-200 focus:border-red-600 outline-none py-2 font-bold text-slate-900 bg-transparent">
+                      <option>NEET Aspirant</option>
+                      <option>JEE Main / Advanced</option>
+                      <option>Foundation (11th/12th)</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Mobile Number</label>
+                    <input type="tel" className="w-full border-b-2 border-slate-200 focus:border-red-600 outline-none py-2 font-bold text-slate-900 bg-transparent" />
+                </div>
+                <ButtonPrimary className="w-full mt-6">Request Callback</ButtonPrimary>
+              </form>
            </div>
         </div>
       </div>
-    );
+    </section>
+  );
 };
 
-// 7. Testimonials
-const Testimonials = () => {
+const HomePage = () => {
   return (
-    <div className="py-20 bg-teal-50">
-      <div className="container mx-auto px-4">
-        <SectionHeading title="What Parents Say" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { text: "Dr. Debashree is very calm and listens to the problems patiently. My daughter recovered very fast under her medication.", author: "Sasmita Das", role: "Mother" },
-            { text: "Excellent diagnosis. She doesn't prescribe unnecessary medicines. Very happy with the consultation.", author: "Rahul Mohanty", role: "Father" },
-            { text: "Best pediatrician in Chandrasekharpur area. She explains the growth chart very well.", author: "Priya S.", role: "Parent" },
-          ].map((t, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 relative">
-              <div className="text-teal-200 absolute top-4 left-4">
-                 <MessageCircle className="w-8 h-8 opacity-20" />
-              </div>
-              <p className="text-slate-700 italic mb-6 relative z-10">"{t.text}"</p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  {t.author[0]}
-                </div>
-                <div className="ml-3">
-                  <p className="font-bold text-slate-900 text-sm">{t.author}</p>
-                  <p className="text-xs text-slate-500">{t.role}</p>
-                </div>
-              </div>
+    <main className="min-h-screen font-sans text-slate-900 bg-white selection:bg-red-600 selection:text-white">
+      <Navbar />
+      <Hero />
+      <SuccessStats />
+      
+      {/* Brand Credibility Scroller */}
+      <div className="bg-red-600 py-6 overflow-hidden border-y-4 border-slate-950">
+        <div className="flex justify-around items-center gap-12 whitespace-nowrap">
+          {[1,2,3].map(i => (
+            <div key={i} className="flex items-center gap-8 text-white font-black uppercase tracking-[0.4em] text-xs">
+              <span></span>
+              <Atom className="w-4 h-4" />
+               <span></span>
+              <Atom className="w-4 h-4" />
+             
+              <span>JEE ADVANCE</span>
+              <Atom className="w-4 h-4" />
+              <span>Allen Institute Chennai</span>
+              <Atom className="w-4 h-4" />
+              <span>NEET</span>
+              <Atom className="w-4 h-4" />
+              <span>9+ Years Experience</span>
+              <Atom className="w-4 h-4" />
+              <span>JEE MAINS</span>
+              <Atom className="w-4 h-4" />
             </div>
           ))}
         </div>
       </div>
-    </div>
-  );
-};
 
-// 8. Footer
-const Footer = () => {
-  return (
-    <footer className="bg-white border-t border-slate-200 pt-12 pb-6">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="text-center md:text-left">
-          <div className="font-bold text-2xl text-slate-800 mb-2">Dr. Debashree <span className="text-teal-600">Priyadarshini</span></div>
-          <p className="text-sm text-slate-500">Regd No. 1642/11/2 (Odisha Medical Council)</p>
-        </div>
-        
-        <div className="flex gap-6">
-            <a href="#" className="text-slate-500 hover:text-teal-600 transition-colors"><MessageCircle className="w-6 h-6"/></a>
-            <a href="#" className="text-slate-500 hover:text-teal-600 transition-colors"><Mail className="w-6 h-6"/></a>
-        </div>
-      </div>
-      <div className="text-center text-slate-400 text-xs mt-10">
-        <p>&copy; 2025 Dr. Debashree Priyadarshini Clinic. All rights reserved.</p>
-      </div>
-    </footer>
-  );
-};
+      <ExperienceGrid />
 
-// MAIN APP COMPONENT
-const HomePage = () => {
-  return (
-    <div className="min-h-screen font-sans text-slate-800 bg-white">
-      <Navbar />
-      <Hero />
-      <KeyFeatures />
-      <AboutDoctor />
-      <Services />
-      <ClinicInfo />
-      <Testimonials />
-      <Footer />
-    </div>
+      {/* Specialty Sections */}
+      <section id="batches" className="py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-black uppercase italic text-slate-950 tracking-tighter">Premier <span className="text-red-600">Curriculum</span></h2>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-2">Targeted Physics training for 2026-27</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+             <div className="group bg-slate-950 p-12 rounded-[2.5rem] border border-white/5 hover:border-red-600 transition-all shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-3xl"></div>
+                <Trophy className="w-12 h-12 text-red-600 mb-8" />
+                <h3 className="text-2xl font-black uppercase italic mb-4 text-white">JEE Advanced Focus</h3>
+                <p className="text-slate-400 font-medium mb-8 leading-relaxed">Deep conceptual derivation and high-order thinking problems tailored for IIT aspirants.</p>
+                <div className="text-red-600 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 cursor-pointer group-hover:translate-x-2 transition-transform">
+                  Batch Details <ArrowRight className="w-4 h-4" />
+                </div>
+             </div>
+             <div className="group bg-slate-50 p-12 rounded-[2.5rem] border border-slate-200 hover:border-red-600 transition-all shadow-xl">
+                <Target className="w-12 h-12 text-red-600 mb-8" />
+                <h3 className="text-2xl font-black uppercase italic mb-4 text-slate-900">NEET Speed Drills</h3>
+                <p className="text-slate-500 font-medium mb-8 leading-relaxed">Accuracy-centric training designed to solve NEET Physics questions in record time with zero errors.</p>
+                <div className="text-red-600 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 cursor-pointer group-hover:translate-x-2 transition-transform">
+                  Batch Details <ArrowRight className="w-4 h-4" />
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      <AdmissionForm />
+
+      <footer className="py-16 bg-slate-950 text-center">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="bg-red-600 p-2 rounded-lg">
+              <Target className="text-white w-5 h-5" />
+            </div>
+            <div className="font-black text-xl text-white tracking-tighter uppercase">
+              SETU KUMAR <span className="text-red-600 italic">THAKUR</span>
+            </div>
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-500">
+            Senior Physics Lecturer | Allen Chennai | Ex-Aakash | 9+ Years Mentorship
+          </p>
+        </div>
+      </footer>
+    </main>
   );
 };
 
