@@ -98,7 +98,7 @@ const Hero = () => {
         <div className="relative">
           <div className="relative z-10 rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl transition-all duration-700">
             <img 
-              src="assets/PHOTO.jpeg" 
+              src="assets/photo.jpeg" 
               alt="Setu Kumar Thakur" 
               className="w-full h-auto object-cover aspect-[4/5]"
             />
