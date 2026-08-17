@@ -1,7 +1,7 @@
 <<<<<<< HEAD
-# SETU
+# NANDITA BEHERA
 
-Official website for **Setu Kumar Thakur**, Senior Physics Faculty.
+Official website for **NANDITA BEHERA**, Senior Physics Faculty.
 
 ## Tech Stack
 - Next.js
